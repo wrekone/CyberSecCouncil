@@ -1,0 +1,27 @@
+#! usr/bin/python3
+
+import socket 
+
+target_host = '127.0.0.1'
+target_port = 80
+
+#Creating a socket object 
+#SOCK_DGRAM says unreliable traffic
+
+client = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+#send data 
+#converting our string to bytes and setting encoding type to ommit errors 
+client.sendto(bytes("AAABBBCCC", "utf-8"),(target_host, target_port))
+
+#recive data 
+
+data, addr = client.recvfrom(4096)
+
+print(data)
+
+
+#Note i got WinError 10054  - And connection was closed 
+#Sooo im thinking because i sent the connection to myself
+#That was python saying " Hey your system got mad at you, 
+#but you sent the data HUURRAAYY
